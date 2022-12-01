@@ -40,5 +40,29 @@ module.exports = {
     } catch (e) {
       next(e);
     }
+  },
+
+  logout: async (req, res, next) => {
+    try {
+      const { accessToken } = req.tokenInfo;
+
+      await OAuth.deleteOne({ accessToken });
+
+      res.sendStatus(204);
+    } catch (e) {
+      next(e);
+    }
+  },
+
+  logoutAll: async (req, res, next) => {
+    try {
+      const { _user_id } = req.tokenInfo;
+
+      await OAuth.deleteMany({ _user_id });
+
+      res.sendStatus(204);
+    } catch (e) {
+      next(e);
+    }
   }
 }
