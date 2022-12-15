@@ -1,12 +1,15 @@
 const User = require("../dataBase/User");
 const s3Service = require("../service/s3.service");
+const { userRepository } = require('../repository');
+const { userPresenter } = require('../presenter');
 
 module.exports = {
   getAllUsers: async (req, res, next) => {
     try {
-      const users = await User.find({});
+      const data = await userRepository.find(req.query);
 
-      res.json(users);
+      data.users = userPresenter.normalizeMany(data.users);
+      res.json(data);
     } catch (e) {
       next(e);
     }

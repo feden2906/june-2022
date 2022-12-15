@@ -9,6 +9,7 @@ const userSchema = new Schema({
   phone: { type: String, required: true },
   age: { type: Number, default: 18 }
 }, {
+  versionKey: false,
   timestamps: true,
   toJSON: { virtuals: true },
   toObject: { virtuals: true }
